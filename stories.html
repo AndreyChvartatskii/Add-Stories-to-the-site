@@ -1,0 +1,681 @@
+<!--Версия 3.0-->
+<div class="popup">
+    <div class="popupWrapper"></div>
+    <button class="close-popup"></button>
+    <div class="slider">
+      <div class="slider-list">
+        <div class="slider-track">
+          <!--Первый кружок-->
+          <div class="slide">
+            <div class="storieBlock storie1"></div>
+            <div class="storieBlock storie2"></div>
+            <div class="storieBlock storie3"></div>
+            <div class="storieBlock storie4"></div>
+            <div class="progress-bar-continer">
+              <div class="progress-bar progress-bar1"></div>
+              <div class="progress-bar progress-bar2"></div>
+              <div class="progress-bar progress-bar3"></div>
+              <div class="progress-bar progress-bar4"></div>
+            </div>
+          </div>
+           <!--Второй кружок-->
+          <div class="slide">
+            <div class="storieBlock secondStorieBlock storie5"></div>
+            <div class="storieBlock secondStorieBlock storie6"></div>
+            <div class="progress-bar-continer">
+              <div class="progress-bar secondProgress progress-bar5"></div>
+              <div class="progress-bar secondProgress progress-bar6"></div>
+            </div>
+          </div>
+           <!--Третий кружок-->
+          <div class="slide">
+            <div class="storieBlock thirdStorieBlock storie9"></div>
+            <div class="storieBlock thirdStorieBlock storie10"></div>
+            <div class="storieBlock thirdStorieBlock storie11"></div>
+            <div class="storieBlock thirdStorieBlock storie12"></div>
+            <div class="progress-bar-continer">
+              <div class="progress-bar progress-bar9"></div>
+              <div class="progress-bar progress-bar10"></div>
+              <div class="progress-bar progress-bar11"></div>
+              <div class="progress-bar progress-bar12"></div>
+            </div>
+          </div>
+           <!--Четвертый кружок-->
+          <div class="slide">
+            <div class="storieBlock forthStorieBlock storie13"></div>
+            <div class="storieBlock forthStorieBlock storie14"></div>
+            <div class="storieBlock forthStorieBlock storie15"></div>
+            <div class="storieBlock forthStorieBlock storie16"></div>
+            <div class="progress-bar-continer">
+              <div class="progress-bar progress-bar13"></div>
+              <div class="progress-bar progress-bar14"></div>
+              <div class="progress-bar progress-bar15"></div>
+              <div class="progress-bar progress-bar16"></div>
+            </div>
+          </div>
+           <!--Пятый кружок-->
+          <div class="slide">
+            <div class="storieBlock fifthStorieBlock storie17"></div>
+            <div class="storieBlock fifthStorieBlock storie18"></div>
+            <div class="storieBlock fifthStorieBlock storie19"></div>
+            <div class="storieBlock fifthStorieBlock storie20"></div>
+            <div class="progress-bar-continer">
+              <div class="progress-bar progress-bar17"></div>
+              <div class="progress-bar progress-bar18"></div>
+              <div class="progress-bar progress-bar19"></div>
+              <div class="progress-bar progress-bar20"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-arrows">
+        <button type="button" class="prev-slide"></button>
+        <button type="button" class="next-slide"></button>
+      </div>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function() {
+  //Находим блоки для одного раздела каждый блок это одна история и присваим им значения
+  //Первый кружок
+    var blok1 = $("#rec601571162");
+    var blok2 = $("#rec601571382");
+    var blok3 = $("#rec601571655");
+    var blok4 = $("#rec605330742");
+  //Второй кружок
+    var blok5 = $("#rec601571735");
+    var blok6 = $("#rec605330032");
+    var blok7 = $("#rec601575092");
+    var blok8 = $("#rec604769487");
+  //Третий кружок
+    var blok9 = $("#rec604772111");
+    var blok10 = $("#rec604773131");
+    var blok11 = $("#rec604773361");
+    var blok12 = $("#rec604773514");
+  //Четвертый кружок
+    var blok13 = $("#rec604775832");
+    var blok14 = $("#rec604776041");
+    var blok15 = $("#rec604776656");
+    var blok16 = $("#rec604776852");
+  //Пятый кружок
+    var blok17 = $("#rec604777064");
+    var blok18 = $("#rec604777179");
+    var blok19 = $("#rec604777347");
+    var blok20 = $("#rec604777648");
+  //Добавляем эти сторис в слайдер каждый зеро-блок в свой слайд
+    $('.storie1').prepend(blok1);
+    $('.storie2').prepend(blok2);
+    $('.storie3').prepend(blok3);
+    $('.storie4').prepend(blok4);
+    $('.storie5').prepend(blok5);
+    $('.storie6').prepend(blok6);
+    $('.storie7').prepend(blok7);
+    $('.storie8').prepend(blok8);
+    $('.storie9').prepend(blok9);
+    $('.storie10').prepend(blok10);
+    $('.storie11').prepend(blok11);
+    $('.storie12').prepend(blok12);
+    $('.storie13').prepend(blok13);
+    $('.storie14').prepend(blok14);
+    $('.storie15').prepend(blok15);
+    $('.storie16').prepend(blok16);
+    $('.storie17').prepend(blok17);
+    $('.storie18').prepend(blok18);
+    $('.storie19').prepend(blok19);
+    $('.storie20').prepend(blok20);
+  });
+  //Находим элементы
+  var popup = $('.popup');
+  var progressConteiner = $('.progress-bar-continer');
+  var progressBars = progressConteiner.find('.progress-bar');
+  
+  let slider = document.querySelector('.slider'),
+    sliderList = slider.querySelector('.slider-list'),
+    sliderTrack = slider.querySelector('.slider-track'),
+    slides = slider.querySelectorAll('.slide'),
+    arrows = slider.querySelector('.slider-arrows'),
+    prev = arrows.children[0],
+    next = arrows.children[1],
+    slideWidth = slides[0].offsetWidth,
+    slideIndex = 0,
+    currentSlideIndex = 0,
+    posInit = 0,
+    posX1 = 0,
+    posX2 = 0,
+    posY1 = 0,
+    posY2 = 0,
+    posFinal = 0,
+    isSwipe = false,
+    isScroll = false,
+    allowSwipe = true,
+    transition = true,
+    nextTrf = 0,
+    prevTrf = 0,
+    lastTrf = --slides.length * slideWidth,
+    posThreshold = slides[0].offsetWidth * 0.35,
+    trfRegExp = /([-0-9.]+(?=px))/,
+    getEvent = function() {
+      return (event.type.search('touch') !== -1) ? event.touches[0] : event;
+    }, 
+    //Функция переключения между кружками
+    slide = function() {
+      if (transition) {
+        sliderTrack.style.transition = 'transform .5s';
+      }
+      sliderTrack.style.transform = `translate3d(-${slideIndex * slideWidth}px, 0px, 0px)`;
+      prev.classList.toggle('disabled', slideIndex === 0);
+      next.classList.toggle('disabled', slideIndex === --slides.length);
+    },
+    swipeStart = function() {
+      let evt = getEvent();
+     
+      if (allowSwipe) {
+        transition = true;
+        nextTrf = (slideIndex + 1) * -slideWidth;
+        prevTrf = (slideIndex - 1) * -slideWidth;
+        posInit = posX1 = evt.clientX;
+        posY1 = evt.clientY;
+        sliderTrack.style.transition = '';
+        document.addEventListener('touchmove', swipeAction);
+        document.addEventListener('mousemove', swipeAction);
+        document.addEventListener('touchend', swipeEnd);
+        document.addEventListener('mouseup', swipeEnd);
+        sliderList.classList.remove('grab');
+        sliderList.classList.add('grabbing');
+      }
+    },
+    swipeAction = function() {
+      let evt = getEvent(),
+      style = sliderTrack.style.transform,
+      transform = +style.match(trfRegExp)[0];
+      posX2 = posX1 - evt.clientX;
+      posX1 = evt.clientX;
+      posY2 = posY1 - evt.clientY;
+      posY1 = evt.clientY;
+      
+      // определение действия свайп или скролл
+      if (!isSwipe && !isScroll) {
+        let posY = Math.abs(posY2);
+        if (posY > 7 || posX2 === 0) {
+          isScroll = true;
+          allowSwipe = false;
+        } else if (posY < 7) {
+          isSwipe = true;
+        }
+      }
+      if (isSwipe) {
+        progressBars.hide();
+        // запрет ухода влево на первом слайде
+        if (slideIndex === 0) {
+          if (posInit < posX1) {
+            setTransform(transform, 0);
+            return;
+          } else {
+            allowSwipe = true;
+          }
+        }
+        // запрет ухода вправо на последнем слайде
+        if (slideIndex === --slides.length) {
+          if (posInit > posX1) {
+            setTransform(transform, lastTrf);
+            return;
+          } else {
+            allowSwipe = true;
+          }
+        }
+        // запрет протаскивания дальше одного слайда
+        if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
+          reachEdge();
+          return;
+        }
+        // двигаем слайд
+        
+        sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
+      }
+    };
+    swipeEnd = function() {
+      posFinal = posInit - posX1;
+      isScroll = false;
+      isSwipe = false;
+      document.removeEventListener('touchmove', swipeAction);
+      document.removeEventListener('mousemove', swipeAction);
+      document.removeEventListener('touchend', swipeEnd);
+      document.removeEventListener('mouseup', swipeEnd);
+      sliderList.classList.add('grab');
+      sliderList.classList.remove('grabbing');
+      setTimeout(function() {
+                progressBars.show();
+            }, 300);
+      if (allowSwipe) {
+        if (Math.abs(posFinal) > posThreshold) {
+          if (posInit < posX1) {
+            slideIndex--;
+            progressBars.removeClass('active');
+            //Поменять значения здесь
+            if(currentSlideIndex>=4 && currentSlideIndex<=5){
+              currentSlideIndex=0;
+            }
+            if(currentSlideIndex>=6 && currentSlideIndex<=9){
+              currentSlideIndex=4;
+            }
+            if(currentSlideIndex>=10 && currentSlideIndex<=13){
+              currentSlideIndex=6;
+            }
+            if(currentSlideIndex>=14 && currentSlideIndex<=17){
+              currentSlideIndex=10;
+            }
+            
+          } else if (posInit > posX1) {
+            slideIndex++;
+            progressBars.removeClass('active');
+            //Поменять значения здесь
+            if(currentSlideIndex<=3){
+              currentSlideIndex=4;
+            }else
+            if(currentSlideIndex>=4 && currentSlideIndex<=5){
+              currentSlideIndex=6;
+            }else
+            if(currentSlideIndex>=6 && currentSlideIndex<=9){
+              currentSlideIndex=10;
+            }else
+            if(currentSlideIndex>=10 && currentSlideIndex<=13){
+              currentSlideIndex=14;
+            }
+            
+          }
+          showSlide(currentSlideIndex);
+
+        }
+        if (posInit !== posX1) {
+          allowSwipe = false;
+          slide();
+        } else {
+          allowSwipe = true;
+        }
+      } else {
+        allowSwipe = true;
+      }
+    },
+    setTransform = function(transform, comapreTransform) {
+      if (transform >= comapreTransform) {
+        if (transform > comapreTransform) {
+          sliderTrack.style.transform = `translate3d(${comapreTransform}px, 0px, 0px)`;
+        }
+      }
+      allowSwipe = false;
+    },
+    reachEdge = function() {
+      transition = false;
+      swipeEnd();
+      allowSwipe = true;
+    };
+    sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+    sliderList.classList.add('grab');
+    sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
+    slider.addEventListener('touchstart', swipeStart);
+    slider.addEventListener('mousedown', swipeStart);
+
+  //Количество сторис в слайдах Этот параметр нужно изменить если количество сторис изменится
+    let storiesCount = 4;
+  
+  //Ссылки для открытия сторис
+  var links = $('.storiesList');
+  var storie1Start = $('.storiesList').find("[href='#stories1']");
+  var storie2Start = $('.storiesList').find("[href='#stories2']");
+  var storie3Start = $('.storiesList').find("[href='#stories3']");
+  var storie4Start = $('.storiesList').find("[href='#stories4']");
+  var storie5Start = $('.storiesList').find("[href='#stories5']");
+  var stories = $('.popup').find('.storieBlock');
+  //Функции открытия попапа в зависимости от нажатого кружка
+  function openPopup1() {
+    popup.show();
+    slideIndex = 0;
+    slide();
+    currentSlideIndex = 0;
+    showSlide(currentSlideIndex);
+  }
+  function openPopup2() {
+    popup.show();
+    slideIndex = 1;
+    slide();
+    currentSlideIndex = 4;
+    showSlide(currentSlideIndex);
+  }
+  function openPopup3() {
+    popup.show();
+    slideIndex = 2;
+    slide();
+    currentSlideIndex = 6;
+    showSlide(currentSlideIndex);
+  }
+  function openPopup4() {
+    popup.show();
+    slideIndex = 3;
+    slide();
+    currentSlideIndex = 10;
+    showSlide(currentSlideIndex);
+  }
+  function openPopup5() {
+    popup.show();
+    slideIndex = 4;
+    slide();
+    currentSlideIndex = 14;
+    showSlide(currentSlideIndex);
+  }
+  // Функция для закрытия попапа
+  function closePopup() {
+    popup.hide();
+    stopSlider();
+  }
+  // Функция для запуска слайдера
+  function startSlider() {
+    sliderInterval = setInterval(function() {
+      currentSlideIndex++;
+      if (currentSlideIndex >= stories.length) {
+      // Если слайды закончились, закрываем попап
+        closePopup();
+      } else {
+      // Иначе переключаем на следующий слайд
+        showSlide(currentSlideIndex);
+      }
+    }, 15000);
+  }
+  // Функция для остановки слайдера
+  function stopSlider() {
+    progressBars.removeClass('active');
+    clearInterval(sliderInterval);
+  }
+  // Функция для показа определенного слайда
+  function showSlide(index) {
+    var currentSlide = stories.eq(currentSlideIndex);
+    var currentBar = progressBars.eq(currentSlideIndex);
+    var progressWidth = 100/storiesCount; // Ширина прогресс баров      
+    $(progressBars).css('width', progressWidth+'%');
+    currentBar.addClass('active');
+    stories.removeClass('active');    
+    currentSlide.addClass('active');
+  }
+  // Обработчик клика на кнопку назад
+  $('.prev-slide').on('click', function() {
+    var prevBar = progressBars.eq(currentSlideIndex);
+    prevBar.removeClass('active');
+    currentSlideIndex--;
+    //Поменять значения здесь
+    if (currentSlideIndex < 0) {
+      currentSlideIndex = 0;
+    }
+    if (currentSlideIndex == 3){
+      slideIndex--;
+      progressBars.removeClass('active');
+      currentSlideIndex = 0;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 5){
+      slideIndex--;
+      progressBars.removeClass('active');
+      currentSlideIndex = 4;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 9){
+      slideIndex--;
+      progressBars.removeClass('active');
+      currentSlideIndex = 6;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 13){
+      slideIndex--;
+      progressBars.removeClass('active');
+      currentSlideIndex = 10;
+      progressBars.hide();
+      slide();
+    }
+    setTimeout(function() {
+        progressBars.show();
+    }, 1500);
+    showSlide(currentSlideIndex);
+  });
+  // Обработчик клика на кнопку вперед
+  $('.next-slide').on('click', function() {
+    currentSlideIndex++;
+    //Поменять значения здесь
+    if (currentSlideIndex >= stories.length) {
+      closePopup();
+    }
+    if (currentSlideIndex == 4){
+      slideIndex++;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 6){
+      slideIndex++;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 10){
+      slideIndex++;
+      progressBars.hide();
+      slide();
+    }
+    if (currentSlideIndex == 14){
+      slideIndex++;
+      progressBars.hide();
+      slide();
+    }
+    setTimeout(function() {
+        progressBars.show();
+    }, 1500);
+    showSlide(currentSlideIndex);
+  });
+  //Вызов функции открытия попапа с разных точек входа
+  storie1Start.on('click', function(e) {
+    e.preventDefault();
+    openPopup1();
+  });
+  storie2Start.on('click', function(e) {
+    e.preventDefault();
+    openPopup2();
+  });
+  storie3Start.on('click', function(e) {
+    e.preventDefault();
+    openPopup3();
+  });
+  storie4Start.on('click', function(e) {
+    e.preventDefault();
+    openPopup4();
+  });
+  storie5Start.on('click', function(e) {
+    e.preventDefault();
+    openPopup5();
+  });
+  // Обработчик клика на кнопку закрытия попапа
+  $('.close-popup').on('click', function() {
+    closePopup();
+  });
+  </script>
+  <style>
+  .slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    /* Чтобы во время перетаскивания слайда ничего не выделить внутри него */
+    user-select: none;
+    /* Чтобы запретить скролл страницы, если мы начали двигать слайдер по оси X */
+    touch-action: pan-y;
+  }
+  /* Если где-то внутри слайдера будут изображения,
+  то нужно задать им pointer-events: none,
+  чтобы они не перетаскивались мышью */
+  .storie {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slider-list {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .slider-list.grab {
+    cursor: grab;
+  }
+  
+  .slider-list.grabbing{
+    cursor: grabbing;
+  }
+  
+  .slider-track {
+    display: flex;
+    height: 100%;
+  }
+  
+  .slide {
+    width: 100%;
+    height: 100%;
+    /* Чтобы слайды не сжимались */
+    flex-shrink: 0;
+    /* Увеличиваем и центрируем цифру внутри слайда */
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 9999;
+    scroll-snap-align: start;
+    transition: 15s linear ease-out;
+  } 
+  
+  .popupWrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    opacity: 0.8;
+    z-index: 0;
+  }  
+  
+  .close-popup {
+    position:fixed;
+    top: 27px;
+    right: 12px;
+    width: 20px;
+    border: none;
+    height: 20px;
+    z-index: 9999999999;
+    padding: 0;
+    cursor: pointer;
+    background: url('https://static.tildacdn.com/tild3862-3931-4661-b730-393261666635/close.svg') center no-repeat;
+    background-size: cover;
+  }  
+  
+  .prev-slide {
+    position:fixed;
+    top: 50px;
+    left: 5px;
+    width: 70px;
+    height: 90%;
+    z-index: 9999999999;
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    background: #FFFFFF;
+    opacity: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  
+  .next-slide {
+    position:fixed;
+    top: 50px;
+    right: 5px;
+    width: 70px;
+    height: 90%;
+    z-index: 9999999999;
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    background: #FFFFFF;
+    opacity: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }  
+  
+  .storieBlock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+    scroll-snap-align: start;
+  }     
+  
+  .storieBlock img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }    
+  
+  .storieBlock.active {
+    display: block;
+  }
+  
+  .secondStorieBlock {
+    left: 100% !important;
+  }
+  
+  .thirdStorieBlock {
+    left: 200% !important;
+  }
+  
+  .forthStorieBlock {
+    left: 300% !important;
+  }
+  
+  .fifthStorieBlock {
+    left: 400% !important;
+  }
+  
+  .progress-bar-continer{
+    display: flex;
+    flex-direction: row;
+    margin: 0 3%;
+    position: absolute;
+    width: 94%;
+    height: 5px;
+    top: 15px;
+  }
+  
+  .progress-bar.active {
+    background-color: #63479c;
+    z-index: 9;
+  }
+  
+  .progress-bar {
+    position: relative;
+    margin-right: 15px;
+    left: 3%;
+    width: calc((90%)/ 5);
+    height: 2px;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    transition: width 15s linear;
+  }
+  .secondProgress {
+    width: 50% !important;
+  }
+  </style>
